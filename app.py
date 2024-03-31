@@ -45,8 +45,8 @@ def testing_endpoint():
 # @cross_origin()
 def chatGPTResponse_endpoint():
     # Firebase initalization
-    cred = credentials.Certificate("capstonecat-firebase.json") 
-    firebase_admin.initialize_app(cred)
+    # cred = credentials.Certificate("capstonecat-firebase.json") 
+    # firebase_admin.initialize_app(cred)
     db = firestore.client()
 
     # ChatGPT
@@ -80,8 +80,8 @@ def chatGPTResponse_endpoint():
 # @cross_origin()
 def chatGPTReset_endpoint():
     # Firebase initalization
-    cred = credentials.Certificate("capstonecat-firebase.json") 
-    firebase_admin.initialize_app(cred)
+    # cred = credentials.Certificate("capstonecat-firebase.json") 
+    # firebase_admin.initialize_app(cred)
     db = firestore.client()
 
     # ChatGPT
