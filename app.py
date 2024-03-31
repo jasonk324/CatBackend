@@ -44,6 +44,14 @@ def testing_endpoint():
 @app.route('/chatGPTResponse', methods=['POST', 'OPTIONS'])
 # @cross_origin()
 def chatGPTResponse_endpoint():
+    # Firebase initalization
+    cred = credentials.Certificate("capstonecat-firebase.json") 
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+
+    # ChatGPT
+    openai.api_key = apiKey
+
     data = request.form
     print(data)
     newInput = data['transcript']
@@ -71,6 +79,14 @@ def chatGPTResponse_endpoint():
 @app.route('/chatGPTReset', methods=['POST'])
 # @cross_origin()
 def chatGPTReset_endpoint():
+    # Firebase initalization
+    cred = credentials.Certificate("capstonecat-firebase.json") 
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+
+    # ChatGPT
+    openai.api_key = apiKey
+
     data = request.form
     personality = data['personality']
 
