@@ -41,6 +41,14 @@ def testing_endpoint():
     print("Hello It worked")
     return jsonify({"Success": "Yay"})
 
+@app.route("/initialize", methods=['GET'])
+# @cross_origin()
+def initialize_endpoint():
+    cred = credentials.Certificate("capstonecat-firebase.json") 
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+    return jsonify({"Success": "Yay I initialized"})
+
 @app.route('/chatGPTResponse', methods=['POST', 'OPTIONS'])
 # @cross_origin()
 def chatGPTResponse_endpoint():
