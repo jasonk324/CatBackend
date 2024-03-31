@@ -7,7 +7,8 @@ import json
 import openai
 from variables import apiKey, defaultContexts, defaultOutputs
 
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 # CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -112,6 +113,10 @@ def chatGPTReset_endpoint():
     print("Document updated successfully!")
 
     return jsonify({'success': "Nice Job"})
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
     # Firebase initalization

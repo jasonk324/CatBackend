@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Noto+Sans&family=Rubik&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+.main {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #F2F2F0;
+    overflow: auto; /* Allow content scrolling within the container */  
+}
+
+.bg-top {
+    background: #020227;
+    box-shadow: 0 0 10px rgb(73, 73, 73);
+  }
+
+.bg-shadow {
+    box-shadow: 0 0 10px rgb(73, 73, 73);
+  }
+
+.darkGray-box {
+    background: #191919;
+    box-shadow: 0 0 5px rgb(73, 73, 73);
+    color: white;
+}
+
+@layer components {
+
+    .blue-box {
+        @apply text-white bg-[#6767D9];
+    }
+
+    .darkBlue-box {
+        @apply text-white bg-[#211753] px-6 py-1;
+    }
+
+    .darkBlue-circle {
+        @apply bg-[#211753] rounded-full m-2 p-2;
+    }
+
+    .text-small {
+        @apply xl:text-[14px] text-[12px];
+      }
+
+    .text-norm {
+        @apply xl:text-[18px] text-[16px];
+      }
+    
+      .text-subHeader {
+        @apply xl:text-[20px] text-[18px];
+      }
+    
+      .text-header {
+        @apply xl:text-[24px] text-[20px];
+      }
+    
+      .text-bigHeader {
+        @apply xl:text-[26px] text-[22px];
+      }
+    
+      .text-title {
+        @apply xl:text-[30px] text-[26px];
+      }
+}
