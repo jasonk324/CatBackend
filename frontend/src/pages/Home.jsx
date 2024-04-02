@@ -45,26 +45,38 @@ const Home = () => {
 					<div className='blue-box p-2 rounded-md text-center font-bold'>
 						Movements
 					</div>
-					<div>
+					{/* <div>
 						One action must be run until completion before the next one can be called.
-					</div>
-					<div className="w-full flex justify-between items-center flex-col gap-4 py-6 border-t-[1px] border-t-[#afafaf] border-b-[1px] border-b-[#afafaf]">
+					</div> */}
+					<div className="w-full flex justify-between items-center flex-col gap-4 pb-2 border-b-[1px] border-b-[#afafaf]">
 						<DPad />
 					</div>
-					<div>
+					{/* <div>
 						Additional Movements
+					</div> */}
+					<div className='flex flex-row'>
+						<ButtonCommand description={"Stand"} actionName={"a"} timer={100}/>
+						<ButtonCommand description={"Stand Tall"} actionName={"s"} timer={100}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Stand"} actionName={"a"}/>
-						<ButtonCommand description={"Walk"} actionName={"8"}/>
+						<ButtonCommand description={"Sit"} actionName={"y"} timer={100}/>
+						<ButtonCommand description={"Wag Tail"} actionName={"s"} timer={50000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Backward"} actionName={"b"}/>
-						<ButtonCommand description={"Stand Tall"} actionName={"s"}/>
+						<ButtonCommand description={"Nod Yes"} actionName={"]"} timer={20000}/>
+						<ButtonCommand description={"Nod No"} actionName={"["} timer={20000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Forwards"} actionName={"w"}/>
-						<ButtonCommand description={"Happy"} actionName={"h"}/>
+						<ButtonCommand description={"Happy Mode"} actionName={"h"} timer={20000}/>
+						<ButtonCommand description={"Climb Stair"} actionName={"="} timer={100000}/>
+					</div>
+					<div className='flex flex-row'>
+						<ButtonCommand description={"Lie On Belly"} actionName={"-"} timer={100}/>
+						<ButtonCommand description={"Right Recover"} actionName={"v"} timer={70000}/>
+					</div>
+					<div className='flex flex-row'>
+						<ButtonCommand description={"Left Recover"} actionName={"c"} timer={70000}/>
+						<ButtonCommand description={"Fall Recovery"} actionName={"x"} timer={30000}/>
 					</div>
 				</div>
 

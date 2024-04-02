@@ -4,7 +4,7 @@ import { setDoc, doc, serverTimestamp, collection } from 'firebase/firestore'
 import { db } from "../firebase";
 import CatPaw from "../assets/Buttons/CatPaw.png"
 
-const ButtonCommand = ({description, actionName}) => {
+const ButtonCommand = ({description, actionName, timer}) => {
   const { Modes, Disabled } = useButtons()
   const actionRef = collection(db, "Actions");
 
@@ -19,21 +19,21 @@ const ButtonCommand = ({description, actionName}) => {
       createdAt: serverTimestamp()
     })
 
-    let timer = 100;
-    // Different timers for different buttons
-    if (description == "Get up") {
-      timer = 100;
-    }  else if (description == "Smell") {
-      timer = 100;
-    } else if (description == "Raise Leg") {
-      timer = 100;
-    } else if (description == "Spin 360") {
-      timer = 100;
-    } else if (description == "Head Left") {
-      timer = 100;
-    } else if (description == "Head Right") {
-      timer = 100;
-    }
+    // let timer = 100;
+    // // Different timers for different buttons
+    // if (description == "Get up") {
+    //   timer = 100;
+    // }  else if (description == "Smell") {
+    //   timer = 100;
+    // } else if (description == "Raise Leg") {
+    //   timer = 100;
+    // } else if (description == "Spin 360") {
+    //   timer = 100;
+    // } else if (description == "Head Left") {
+    //   timer = 100;
+    // } else if (description == "Head Right") {
+    //   timer = 100;
+    // }
 
     setTimeout(() => {
       Disabled.set(false)
@@ -49,7 +49,7 @@ const ButtonCommand = ({description, actionName}) => {
             className={`${!Modes["manual"].get || Disabled.get ? 'bg-[#b69082]' : 'bg-[#F5C3AF]'} hover:bg-[#b69082] text-norm text-black font-bold p-3 rounded focus:outline-none focus:shadow-outline w-full`}
             disabled={!Modes["manual"].get || Disabled.get}
           >
-            <img src={CatPaw} className='w-[18px]'/>
+            <img src={CatPaw} className='w-[12px]'/>
           </button>
         </div>
         <div className='text-white font-bold ml-4'>{description}</div>
