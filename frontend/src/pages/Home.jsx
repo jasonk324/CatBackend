@@ -55,28 +55,28 @@ const Home = () => {
 						Additional Movements
 					</div> */}
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Stand"} actionName={"a"} timer={100}/>
-						<ButtonCommand description={"Stand Tall"} actionName={"s"} timer={100}/>
+						<ButtonCommand description={"Stand"} actionName={"a"} timer={1000}/>
+						<ButtonCommand description={"Stand Tall"} actionName={"s"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Sit"} actionName={"y"} timer={100}/>
-						<ButtonCommand description={"Wag Tail"} actionName={"s"} timer={100}/>
+						<ButtonCommand description={"Sit"} actionName={"y"} timer={1000}/>
+						<ButtonCommand description={"Wag Tail"} actionName={"t"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Nod Yes"} actionName={"]"} timer={100}/>
-						<ButtonCommand description={"Nod No"} actionName={"["} timer={100}/>
+						<ButtonCommand description={"Nod Yes"} actionName={"]"} timer={1000}/>
+						<ButtonCommand description={"Nod No"} actionName={"["} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Happy Mode"} actionName={"h"} timer={100}/>
-						<ButtonCommand description={"Climb Stair"} actionName={"="} timer={100}/>
+						<ButtonCommand description={"Happy Mode"} actionName={"h"} timer={1000}/>
+						<ButtonCommand description={"Climb Stair"} actionName={"="} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Lie On Belly"} actionName={"-"} timer={100}/>
-						<ButtonCommand description={"Right Recover"} actionName={"v"} timer={100}/>
+						<ButtonCommand description={"Lie On Belly"} actionName={"-"} timer={1000}/>
+						<ButtonCommand description={"Right Recover"} actionName={"v"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Left Recover"} actionName={"c"} timer={100}/>
-						<ButtonCommand description={"Fall Recovery"} actionName={"x"} timer={100}/>
+						<ButtonCommand description={"Left Recover"} actionName={"c"} timer={1000}/>
+						<ButtonCommand description={"Fall Recovery"} actionName={"x"} timer={1000}/>
 					</div>
 				</div>
 

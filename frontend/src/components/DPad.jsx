@@ -23,7 +23,7 @@ const DPad = () => {
 
     setTimeout(() => {
       Disabled.set(false)
-    }, 100)
+    }, 1000)
   }
 
   const buttonClickRight = async () => {
@@ -38,7 +38,7 @@ const DPad = () => {
 
     setTimeout(() => {
       Disabled.set(false)
-    }, 100)
+    }, 1000)
   }
 
   const buttonClickLeft = async () => {
@@ -53,7 +53,7 @@ const DPad = () => {
 
     setTimeout(() => {
       Disabled.set(false)
-    }, 100)
+    }, 1000)
   }
 
   const buttonClickDown = async () => {
@@ -68,7 +68,7 @@ const DPad = () => {
 
     setTimeout(() => {
       Disabled.set(false)
-    }, 100)
+    }, 1000)
   }
 
   return (
