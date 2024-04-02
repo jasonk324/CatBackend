@@ -43,7 +43,6 @@ const Video = () => {
       } catch (error) {
         console.error("Error getting document:", error);
       }
-
     }
 
     const intervalIdImage = setInterval(UpdateImage, 100);
