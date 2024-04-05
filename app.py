@@ -5,9 +5,9 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import json
 import openai
+import cv2
 from variables import apiKey, defaultContexts, defaultOutputs
 
-# app = Flask(__name__)
 app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 # CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
