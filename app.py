@@ -5,7 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import json
 import openai
-import cv2
+# import cv2
 import time
 from variables import apiKey, defaultContexts, defaultOutputs
 
