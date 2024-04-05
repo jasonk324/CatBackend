@@ -37,6 +37,10 @@ def obtainDocID(personality):
         documentId = "fBYiP60gbIFoqVytTesV"
     return documentId
 
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
 @app.route("/testing", methods=['GET'])
 # @cross_origin()
 def testing_endpoint():
@@ -123,10 +127,6 @@ def chatGPTReset_endpoint():
     print("Document updated successfully!")
 
     return jsonify({'success': "Nice Job"})
-
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
     # Firebase initalization
