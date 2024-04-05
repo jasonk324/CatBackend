@@ -6,6 +6,7 @@ from firebase_admin import credentials, firestore
 import json
 import openai
 import cv2
+import time
 from variables import apiKey, defaultContexts, defaultOutputs
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='')
@@ -41,6 +42,15 @@ def obtainDocID(personality):
 def testing_endpoint():
     print("Hello It worked")
     return jsonify({"Success": "Yay"})
+
+@app.route("/objectDetection", methods=['GET'])
+# @cross_origin()
+def objectDetection_endpoint():
+    while True:
+        print("Hello It worked")
+        time.sleep(5)
+        print("fuck you")
+        
 
 @app.route("/initialize", methods=['GET'])
 # @cross_origin()
