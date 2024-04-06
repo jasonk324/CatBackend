@@ -48,7 +48,7 @@ def machineVision(input_image_path):
     MINIMUM_THRESHOLD=0.5 #This is the minimum confidence threshold of which the model will show detected objects
     config_file  = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
     frozen_model = 'frozen_inference_graph.pb'
-    file_name    = 'Labels.txt' 
+    file_name    = 'labels.txt' 
 
     model = cv2.dnn_DetectionModel(frozen_model,config_file )
     model.setInputSize(320,320)
