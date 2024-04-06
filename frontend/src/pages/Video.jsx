@@ -20,7 +20,7 @@ const Video = () => {
   useEffect(() => {
     const UpdateImage = async () => {
       const storage = getStorage();
-      const storageRef = ref(storage, 'streaming/latestImage.jpg');
+      const storageRef = ref(storage, 'streaming/objectImage.jpg');
   
       getDownloadURL(storageRef)
         .then((url) => {

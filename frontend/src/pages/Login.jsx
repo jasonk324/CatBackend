@@ -40,7 +40,7 @@ const Login = () => {
                   <img src={RobotCat} className="md:w-[250px] w-[150px] lg:hidden"/>
                 </div>
                 <div className="font-bold text-title text-center lg:text-start">
-                  Stair Climbing Robot Cat <br /> ELE70A/B F2024 📌
+                  Multifunctional Robot Cat <br /> ELE70A/B F2024 😸
                 </div>
                 <div className="text-header text-center lg:text-start md:block hidden">
                   Login to interact with and use the control page of our Robot
