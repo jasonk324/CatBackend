@@ -114,7 +114,7 @@ def objectDetection_endpoint():
         print("Processed image uploaded.")
 
     while True:
-        spamUpdate(bucket)
+        spamUpdate()
         time.sleep(2)
 
 @app.route("/initialize", methods=['GET'])
@@ -197,11 +197,11 @@ def chatGPTReset_endpoint():
 
 if __name__ == '__main__':
     # Firebase initalization
-    cred = credentials.Certificate("capstonecat-firebase.json") 
-    firebase_admin.initialize_app(cred, {
-        'storageBucket': 'capstonecat.appspot.com'
-    })
-    db = firestore.client()
+    # cred = credentials.Certificate("capstonecat-firebase.json") 
+    # firebase_admin.initialize_app(cred, {
+    #     'storageBucket': 'capstonecat.appspot.com'
+    # })
+    # db = firestore.client()
 
     # ChatGPT
     openai.api_key = apiKey
