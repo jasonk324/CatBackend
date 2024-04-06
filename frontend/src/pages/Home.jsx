@@ -71,12 +71,12 @@ const Home = () => {
 						<ButtonCommand description={"Right Paw"} actionName={"g"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Lie On Belly"} actionName={"-"} timer={1000}/>
+						<ButtonCommand description={"Left Recover"} actionName={"c"} timer={1000}/>
 						<ButtonCommand description={"Right Recover"} actionName={"v"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Left Recover"} actionName={"c"} timer={1000}/>
-						<ButtonCommand description={"Fall Recovery"} actionName={"x"} timer={1000}/>
+						<ButtonCommand description={"Lie On Belly"} actionName={"-"} timer={1000}/>
+						<ButtonCommand description={"Fall Recovery"} actionName={"X"} timer={1000}/>
 					</div>
 				</div>
 

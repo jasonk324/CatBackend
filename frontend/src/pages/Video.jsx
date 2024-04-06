@@ -80,7 +80,7 @@ const Video = () => {
 
     const actionDocRef = doc(actionRef);
     setDoc(actionDocRef, {
-      action: "q",
+      action: "(",
       priority: 1,
       createdAt: serverTimestamp()
     })
@@ -95,7 +95,7 @@ const Video = () => {
 
     const actionDocRef = doc(actionRef);
     setDoc(actionDocRef, {
-      action: "Q",
+      action: ")",
       priority: 1,
       createdAt: serverTimestamp()
     })
