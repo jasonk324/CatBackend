@@ -19,6 +19,13 @@ const Video = () => {
 
   useEffect(() => {
     const UpdateImage = async () => {
+      
+      await fetch(`/objectDetection`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
+
       const storage = getStorage();
       const storageRef = ref(storage, 'streaming/objectImage.jpg');
   
@@ -45,7 +52,7 @@ const Video = () => {
       }
     }
 
-    const intervalIdImage = setInterval(UpdateImage, 100);
+    const intervalIdImage = setInterval(UpdateImage, 2000);
     const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
     
     return () => {

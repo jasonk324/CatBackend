@@ -100,22 +100,19 @@ def testing_endpoint():
 def objectDetection_endpoint():
     bucket = storage.bucket()
 
-    def spamUpdate():
-        imgFire = bucket.blob("streaming/latestImage.jpg")
-        imgFireProcessed = bucket.blob('streaming/objectImage.jpg')
+    imgFire = bucket.blob("streaming/latestImage.jpg")
+    imgFireProcessed = bucket.blob('streaming/objectImage.jpg')
 
-        imgFire.download_to_filename('latestImage.jpg')
-        print("Latest image downloaded.")
+    imgFire.download_to_filename('latestImage.jpg')
+    print("Latest image downloaded.")
 
-        machineVision('latestImage.jpg')
-        print("Image processed.")
+    machineVision('latestImage.jpg')
+    print("Image processed.")
 
-        imgFireProcessed.upload_from_filename("objectImage.jpg")
-        print("Processed image uploaded.")
+    imgFireProcessed.upload_from_filename("objectImage.jpg")
+    print("Processed image uploaded.")
 
-    while True:
-        spamUpdate()
-        time.sleep(2)
+    return jsonify({"Success": "image updated :)"})
 
 @app.route("/initialize", methods=['GET'])
 # @cross_origin()

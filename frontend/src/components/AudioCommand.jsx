@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import AudioIcon from "../assets/AudioIcons/AudioOn.png"
 
 const AudioCommand = ({description, actionName}) => {
-	const { Modes, Disabled } = useButtons()
+	const { Modes } = useButtons()
 	const ref = doc(db, "Conversations", "WakieTalkie");
 
     const sendTranscript = async () => {
@@ -20,8 +20,7 @@ const AudioCommand = ({description, actionName}) => {
         <div className='flex h-full items-center justify-center'>
           <button 
             onClick={sendTranscript} 
-            className={`${!Modes["manual"].get || Disabled.get ? 'bg-[#b69082]' : 'bg-[#F5C3AF]'} hover:bg-[#b69082] text-norm text-black font-bold p-3 rounded focus:outline-none focus:shadow-outline w-full`}
-            disabled={!Modes["manual"].get || Disabled.get}
+            className={`${!Modes["manual"].get ? 'bg-[#b69082]' : 'bg-[#F5C3AF]'} hover:bg-[#b69082] text-norm text-black font-bold p-3 rounded focus:outline-none focus:shadow-outline w-full`}
           >
             <img src={AudioIcon} className='w-[18px]'/>
           </button>
