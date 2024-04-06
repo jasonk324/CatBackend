@@ -85,19 +85,6 @@ def machineVision(input_image_path):
 
     cv2.imwrite(output_image_path, img)
 
-def spamUpdate(bucket):
-    imgFire = bucket.blob("streaming/latestImage.jpg")
-    imgFireProcessed = bucket.blob('streaming/objectImage.jpg')
-
-    imgFire.download_to_filename('latestImage.jpg')
-    print("Latest image downloaded.")
-
-    machineVision('latestImage.jpg')
-    print("Image processed.")
-
-    imgFireProcessed.upload_from_filename("objectImage.jpg")
-    print("Processed image uploaded.")
-
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
@@ -111,12 +98,28 @@ def testing_endpoint():
 @app.route("/objectDetection", methods=['GET'])
 # @cross_origin()
 def objectDetection_endpoint():
+    cred = credentials.Certificate("capstonecat-firebase.json") 
+    firebase_admin.initialize_app(cred, {
+        'storageBucket': 'capstonecat.appspot.com'
+    })
     bucket = storage.bucket()
+
+    def spamUpdate():
+        imgFire = bucket.blob("streaming/latestImage.jpg")
+        imgFireProcessed = bucket.blob('streaming/objectImage.jpg')
+
+        imgFire.download_to_filename('latestImage.jpg')
+        print("Latest image downloaded.")
+
+        machineVision('latestImage.jpg')
+        print("Image processed.")
+
+        imgFireProcessed.upload_from_filename("objectImage.jpg")
+        print("Processed image uploaded.")
 
     while True:
         spamUpdate(bucket)
         time.sleep(2)
-        
 
 @app.route("/initialize", methods=['GET'])
 # @cross_origin()
