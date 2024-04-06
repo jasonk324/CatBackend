@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { getDoc, doc, updateDoc } from 'firebase/firestore'
+import { setDoc, getDoc, doc, serverTimestamp, collection, updateDoc } from 'firebase/firestore'
 import { db } from "../firebase";
 import ToPath from '../components/ToPath';
 import Control from "../assets/Buttons/Control.png"
@@ -10,6 +10,7 @@ import { useButtons } from '../contexts/ButtonsContext';
 
 const Video = () => {
   const { Disabled } = useButtons()
+  const actionRef = collection(db, "Actions");
   const [imageUrl, setImageUrl] = useState(null);
   const [distance, setDistance] = useState(null);
   const [C2H5CH, setC2H5CH]  = useState(null);
@@ -61,26 +62,60 @@ const Video = () => {
     };    
   }, []);
 
+  // const handleSmell = async () => {
+  //   Disabled.set(true)
+  //   const docRef = doc(db, "Smell_Distance", "Default");
+
+  //   await updateDoc(docRef, {
+  //     SmellAction: "s"
+  //   });
+
+  //   setTimeout(() => {
+  //     Disabled.set(false)
+  //   }, 1000)
+  // }
+  
   const handleSmell = async () => {
     Disabled.set(true)
-    const docRef = doc(db, "Smell_Distance", "Default");
 
-    await updateDoc(docRef, {
-      SmellAction: "s"
-    });
+    const actionDocRef = doc(actionRef);
+    setDoc(actionDocRef, {
+      action: "q",
+      priority: 1,
+      createdAt: serverTimestamp()
+    })
 
     setTimeout(() => {
       Disabled.set(false)
-    }, 10000)
+    }, 1000)
+  }
+
+  const handleDistance = async () => {
+    Disabled.set(true)
+
+    const actionDocRef = doc(actionRef);
+    setDoc(actionDocRef, {
+      action: "Q",
+      priority: 1,
+      createdAt: serverTimestamp()
+    })
+
+    setTimeout(() => {
+      Disabled.set(false)
+    }, 1000)
   }
 
   return (
     <>
       <div className='mt-24 flex flex-col gap-4 justify-center items-center'>
         <div className='flex flex-center justify-center items-center darkGray-box rounded-full p-3 gap-3 font-bold w-[90%] sm:w-auto'>
-          <div className='bg-[#b69082] p-3 rounded-full'>
+          <button 
+            className={`${Disabled.get ? 'bg-[#b69082]' : 'bg-[#F5C3AF]'} hover:bg-[#b69082] p-3 rounded-full`}
+            onClick={handleDistance}
+            disabled={Disabled.get}
+          >
             <img src={DistanceIcon} className='w-8'/>
-          </div>
+          </button>
           {distance}
         </div>
         <div className='flex flex-row justify-center items-center gap-3 w-[90%] sm:w-auto'>

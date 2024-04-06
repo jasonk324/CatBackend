@@ -19,22 +19,6 @@ const ButtonCommand = ({description, actionName, timer}) => {
       createdAt: serverTimestamp()
     })
 
-    // let timer = 100;
-    // // Different timers for different buttons
-    // if (description == "Get up") {
-    //   timer = 100;
-    // }  else if (description == "Smell") {
-    //   timer = 100;
-    // } else if (description == "Raise Leg") {
-    //   timer = 100;
-    // } else if (description == "Spin 360") {
-    //   timer = 100;
-    // } else if (description == "Head Left") {
-    //   timer = 100;
-    // } else if (description == "Head Right") {
-    //   timer = 100;
-    // }
-
     setTimeout(() => {
       Disabled.set(false)
     }, timer)
