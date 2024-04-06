@@ -98,10 +98,6 @@ def testing_endpoint():
 @app.route("/objectDetection", methods=['GET'])
 # @cross_origin()
 def objectDetection_endpoint():
-    cred = credentials.Certificate("capstonecat-firebase.json") 
-    firebase_admin.initialize_app(cred, {
-        'storageBucket': 'capstonecat.appspot.com'
-    })
     bucket = storage.bucket()
 
     def spamUpdate():
