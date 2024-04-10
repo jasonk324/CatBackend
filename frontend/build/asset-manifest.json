@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.767f0c58.css",
-    "main.js": "/static/js/main.c0a1b571.js",
+    "main.js": "/static/js/main.152986c8.js",
     "static/media/RobotCatIcon.png": "/static/media/RobotCatIcon.a7ea2196f3f07d8540c3.png",
     "static/media/HelloKittyBlackIcon.png": "/static/media/HelloKittyBlackIcon.585d18c070eb3c4c45fa.png",
     "static/media/Smell.png": "/static/media/Smell.c3ce48c9b103a6834c76.png",
@@ -14,10 +14,10 @@
     "static/media/Down.png": "/static/media/Down.76c2e061c201ceb0691d.png",
     "index.html": "/index.html",
     "main.767f0c58.css.map": "/static/css/main.767f0c58.css.map",
-    "main.c0a1b571.js.map": "/static/js/main.c0a1b571.js.map"
+    "main.152986c8.js.map": "/static/js/main.152986c8.js.map"
   },
   "entrypoints": [
     "static/css/main.767f0c58.css",
-    "static/js/main.c0a1b571.js"
+    "static/js/main.152986c8.js"
   ]
 }

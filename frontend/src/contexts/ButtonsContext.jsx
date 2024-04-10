@@ -36,7 +36,6 @@ export function ButtonsProvider({ children }) {
   const [left, setLeft] = useState(false)
   const [right, setRight] = useState(false)
   const [getUp, setGetUp] = useState(false)
-  const [smell, setSmell] = useState(false)
   const [raiseLeg, setRaiseleg] = useState(false)
   const [spinBody, setSpinBody] = useState(false)
   const [headLeft, setHeadLeft] = useState(false)
@@ -48,7 +47,6 @@ export function ButtonsProvider({ children }) {
     left: { get: left, set: setLeft },
     right: { get: right, set: setRight },
     getUp: { get: getUp, set: setGetUp },
-    smell: { get: smell, set: setSmell },
     raiseLeg: { get: raiseLeg, set: setRaiseleg },
     spinBody: { get: spinBody, set: setSpinBody },
     headLeft: { get: headLeft, set: setHeadLeft },
@@ -67,6 +65,20 @@ export function ButtonsProvider({ children }) {
     response: { get: response, set: setReponse }
   }
 
+  const [C2H5CH, setC2H5CH]  = useState("C2H5CH: 100 ppm");
+  const [CO, setCO] = useState("CO: 100 ppm");
+  const [NO2, setNO2] = useState("NO2: 100 ppm");
+  const [VOC, setVOC] = useState("VOC: 100 ppm");
+  const [smell, setSmell] = useState("NO SMELL DETECTED");
+
+  const Smell = {
+    C2H5CH: { get: C2H5CH, set: setC2H5CH },
+    CO: { get: CO, set: setCO },
+    NO2: { get: NO2, set: setNO2 },
+    VOC: { get: VOC, set: setVOC },
+    smell: { get: smell, set: setSmell }
+  }
+
   const [disabled, setDisabled] = useState(false)
 
   const Disabled = { get: disabled, set: setDisabled }
@@ -75,6 +87,7 @@ export function ButtonsProvider({ children }) {
     Modes,
     Movements,
     Audio,
+    Smell,
     Disabled
   };
 

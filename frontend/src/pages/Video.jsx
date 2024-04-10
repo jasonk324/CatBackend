@@ -9,21 +9,56 @@ import SmellIcon from "../assets/Buttons/Smell.png"
 import { useButtons } from '../contexts/ButtonsContext';
 
 const Video = () => {
-  const { Disabled } = useButtons()
+  const { Disabled, Smell } = useButtons()
   const actionRef = collection(db, "Actions");
   const [imageUrl, setImageUrl] = useState(null);
   const [distance, setDistance] = useState(null);
-  const [C2H5CH, setC2H5CH]  = useState(null);
-  const [CO, setCO] = useState(null);
-  const [NO2, setNO2] = useState(null);
-  const [VOC, setVOC] = useState(null);
-  const [smell, setSmell] = useState(null);
 
   const getInt = (str) => {
+    console.log(str)
     const parts = str.split(' ');
     const numPart = parseInt(parts[1]);
     return numPart;
   };
+
+  const updateSmell = () => {
+
+    let perfume = Math.abs(getInt(Smell['C2H5CH'].get) - 1000) + Math.abs(getInt(Smell['VOC'].get) - 950) + Math.abs(getInt(Smell['CO'].get) - 950) + Math.abs(getInt(Smell['NO2'].get) - 800);
+    let air = Math.abs(getInt(Smell['C2H5CH'].get) - 660) + Math.abs(getInt(Smell['VOC'].get) - 660) + Math.abs(getInt(Smell['CO'].get) - 290) + Math.abs(getInt(Smell['NO2'].get) - 270);
+    let coffee = Math.abs(getInt(Smell['C2H5CH'].get) - 700) + Math.abs(getInt(Smell['VOC'].get) - 700) + Math.abs(getInt(Smell['CO'].get) - 280) + Math.abs(getInt(Smell['NO2'].get) - 300);
+    let alcohol = Math.abs(getInt(Smell['C2H5CH'].get) - 950) + Math.abs(getInt(Smell['VOC'].get) - 950) + Math.abs(getInt(Smell['CO'].get) - 900) + Math.abs(getInt(Smell['NO2'].get) - 500);
+    let sanitizer = Math.abs(getInt(Smell['C2H5CH'].get) - 850) + Math.abs(getInt(Smell['VOC'].get) - 850) + Math.abs(getInt(Smell['CO'].get) - 700) + Math.abs(getInt(Smell['NO2'].get) - 430);
+
+    perfume = Math.abs(perfume);
+    air = Math.abs(air);
+    coffee = Math.abs(coffee);
+    alcohol = Math.abs(alcohol);
+    sanitizer = Math.abs(sanitizer);
+
+    let minMAE = 255; // Arduino int max value is 255
+    const limit = 200;
+
+    if (perfume < limit && perfume < minMAE) {
+        minMAE = perfume;
+        Smell['smell'].set("PERFUME")
+    }
+    if (air < limit && air < minMAE) {
+        minMAE = air
+        Smell['smell'].set("AIR")
+    }
+    if (coffee < limit && coffee < minMAE) {
+        minMAE = coffee
+        Smell['smell'].set("COFFEE")
+    }
+    if (alcohol < limit && alcohol < minMAE) {
+        minMAE = alcohol
+        Smell['smell'].set("ALCOHOL")
+    }
+    if (sanitizer < limit && sanitizer < minMAE) {
+        minMAE = sanitizer
+        Smell['smell'].set("HAND SANITIZER")
+    }
+  }
 
   useEffect(() => {
     const UpdateImage = async () => {
@@ -50,74 +85,26 @@ const Video = () => {
       try {
         const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
         const data = docRef.data();
-          setDistance(data.Distance)
-          setC2H5CH(data.C2H5CH);
-          setCO(data.CO);
-          setNO2(data.NO2);
-          setVOC(data.VOC);
-
-          let perfume = Math.abs(getInt(C2H5CH) - 1000) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 950) + Math.abs(getInt(NO2) - 800);
-          let air = Math.abs(getInt(C2H5CH) - 660) + Math.abs(getInt(VOC) - 660) + Math.abs(getInt(CO) - 290) + Math.abs(getInt(NO2) - 270);
-          let coffee = Math.abs(getInt(C2H5CH) - 700) + Math.abs(getInt(VOC) - 700) + Math.abs(getInt(CO) - 280) + Math.abs(getInt(NO2) - 300);
-          let alcohol = Math.abs(getInt(C2H5CH) - 950) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 900) + Math.abs(getInt(NO2) - 500);
-          let sanitizer = Math.abs(getInt(C2H5CH) - 850) + Math.abs(getInt(VOC) - 850) + Math.abs(getInt(CO) - 700) + Math.abs(getInt(NO2) - 430);
-
-          perfume = Math.abs(perfume);
-          air = Math.abs(air);
-          coffee = Math.abs(coffee);
-          alcohol = Math.abs(alcohol);
-          sanitizer = Math.abs(sanitizer);
-
-          let minMAE = 255; // Arduino int max value is 255
-          const limit = 200;
-          setSmell("NO SMELL DETECTED")
-
-          if (perfume < limit && perfume < minMAE) {
-              minMAE = perfume;
-              setSmell("PERFUME")
-          }
-          if (air < limit && air < minMAE) {
-              minMAE = air
-              setSmell("AIR")
-          }
-          if (coffee < limit && coffee < minMAE) {
-              minMAE = coffee
-              setSmell("COFFEE")
-          }
-          if (alcohol < limit && alcohol < minMAE) {
-              minMAE = alcohol
-              setSmell("ALCOHOL")
-          }
-          if (sanitizer < limit && sanitizer < minMAE) {
-              minMAE = sanitizer
-              setSmell("HAND SANITIZER")
-          }
+        setDistance(data.Distance)
+        Smell['C2H5CH'].set(data.C2H5CH)
+        Smell['CO'].set(data.CO)
+        Smell['NO2'].set(data.NO2)
+        Smell['VOC'].set(data.VOC)
+        updateSmell();
       } catch (error) {
         console.error("Error getting document:", error);
       }
     }
 
     const intervalIdImage = setInterval(UpdateImage, 2000);
-    const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
+    // const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
+    UpdateSmellAndDistance()
     
     return () => {
-      clearInterval(intervalIdImage);
-      clearInterval(intervalIdSmell);
+      // clearInterval(intervalIdImage);
+      // clearInterval(intervalIdSmell);
     };    
   }, []);
-
-  // const handleSmell = async () => {
-  //   Disabled.set(true)
-  //   const docRef = doc(db, "Smell_Distance", "Default");
-
-  //   await updateDoc(docRef, {
-  //     SmellAction: "s"
-  //   });
-
-  //   setTimeout(() => {
-  //     Disabled.set(false)
-  //   }, 1000)
-  // }
   
   const handleSmell = async () => {
     Disabled.set(true)
@@ -165,10 +152,10 @@ const Video = () => {
         <div className='flex flex-row justify-center items-center gap-3 w-[90%] sm:w-auto'>
           <div className='flex flex-col justify-between font-bold w-[50%] gap-3'>
             <div className='darkGray-box p-1 rounded-lg text-center'>
-              {NO2} 
+              {Smell["NO2"].get} 
             </div>
             <div className='darkGray-box p-1 rounded-lg text-center'>
-              {C2H5CH}
+              {Smell["C2H5CH"].get}
             </div>
           </div>
           <div className='darkGray-box rounded-full p-3'>
@@ -182,15 +169,15 @@ const Video = () => {
           </div>
           <div className='flex flex-col justify-between font-bold w-[50%] gap-3'>
             <div className='darkGray-box p-1 rounded-lg text-center'>
-              {VOC}
+              {Smell["VOC"].get}
             </div>
             <div className='darkGray-box p-1 rounded-lg text-center'>
-              {CO}
+              {Smell["CO"].get}
             </div>
           </div>
         </div>
         <div className='darkGray-box p-1 rounded-lg text-center font-bold'>
-          Detected Smell | {smell}
+          Detected Smell | {Smell["smell"].get}
         </div>
         {imageUrl ? (
           <img src={imageUrl} className='max-w-[90%]'/>
