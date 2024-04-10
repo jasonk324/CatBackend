@@ -17,6 +17,13 @@ const Video = () => {
   const [CO, setCO] = useState(null);
   const [NO2, setNO2] = useState(null);
   const [VOC, setVOC] = useState(null);
+  const [smell, setSmell] = useState(null);
+
+  const getInt = (str) => {
+    const parts = str.split(' ');
+    const numPart = parseInt(parts[1]);
+    return numPart;
+  };
 
   useEffect(() => {
     const UpdateImage = async () => {
@@ -48,6 +55,43 @@ const Video = () => {
           setCO(data.CO);
           setNO2(data.NO2);
           setVOC(data.VOC);
+
+          let perfume = Math.abs(getInt(C2H5CH) - 1000) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 950) + Math.abs(getInt(NO2) - 800);
+          let air = Math.abs(getInt(C2H5CH) - 660) + Math.abs(getInt(VOC) - 660) + Math.abs(getInt(CO) - 290) + Math.abs(getInt(NO2) - 270);
+          let coffee = Math.abs(getInt(C2H5CH) - 700) + Math.abs(getInt(VOC) - 700) + Math.abs(getInt(CO) - 280) + Math.abs(getInt(NO2) - 300);
+          let alcohol = Math.abs(getInt(C2H5CH) - 950) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 900) + Math.abs(getInt(NO2) - 500);
+          let sanitizer = Math.abs(getInt(C2H5CH) - 850) + Math.abs(getInt(VOC) - 850) + Math.abs(getInt(CO) - 700) + Math.abs(getInt(NO2) - 430);
+
+          perfume = Math.abs(perfume);
+          air = Math.abs(air);
+          coffee = Math.abs(coffee);
+          alcohol = Math.abs(alcohol);
+          sanitizer = Math.abs(sanitizer);
+
+          let minMAE = 255; // Arduino int max value is 255
+          const limit = 200;
+          setSmell("NO SMELL DETECTED")
+
+          if (perfume < limit && perfume < minMAE) {
+              minMAE = perfume;
+              setSmell("PERFUME")
+          }
+          if (air < limit && air < minMAE) {
+              minMAE = air
+              setSmell("AIR")
+          }
+          if (coffee < limit && coffee < minMAE) {
+              minMAE = coffee
+              setSmell("COFFEE")
+          }
+          if (alcohol < limit && alcohol < minMAE) {
+              minMAE = alcohol
+              setSmell("ALCOHOL")
+          }
+          if (sanitizer < limit && sanitizer < minMAE) {
+              minMAE = sanitizer
+              setSmell("HAND SANITIZER")
+          }
       } catch (error) {
         console.error("Error getting document:", error);
       }
@@ -143,7 +187,10 @@ const Video = () => {
             <div className='darkGray-box p-1 rounded-lg text-center'>
               {CO}
             </div>
+          </div>
         </div>
+        <div className='darkGray-box p-1 rounded-lg text-center font-bold'>
+          Detected Smell | {smell}
         </div>
         {imageUrl ? (
           <img src={imageUrl} className='max-w-[90%]'/>
