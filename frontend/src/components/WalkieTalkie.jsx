@@ -55,7 +55,7 @@ const WalkieTalkie = () => {
 	return (
 		<>
 			<div className='flex flex-col gap-3 h-full'>
-				<div className='flex flex-row gap-3 h-[45%]'>
+				<div className='flex flex-row gap-3 h-full'>
 					<div className='flex flex-col gap-3'>
 						{Audio['listening'].get ? (
 								<button className='bg-[#F5C3AF] hover:bg-[#b69082] p-3 rounded-full' onClick={handleMicOff}>
