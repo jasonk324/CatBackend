@@ -119,7 +119,7 @@ const Home = () => {
 					<div className='blue-box p-2 rounded-md text-center font-bold'>
 						Audio Controls
 					</div>
-					<div className='lg:flex-1 h-96'>
+					<div className='lg:flex-1 h-96 lg:pb-0 pb-8'>
 						{Modes["aiMode"].get ? <ArtificialIntelligence /> : <WalkieTalkie />}
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d6cc3d25.css",
-    "main.js": "/static/js/main.7f00300f.js",
+    "main.css": "/static/css/main.3eb3b9a4.css",
+    "main.js": "/static/js/main.bedad802.js",
     "static/media/RobotCatIcon.png": "/static/media/RobotCatIcon.a7ea2196f3f07d8540c3.png",
     "static/media/HelloKittyBlackIcon.png": "/static/media/HelloKittyBlackIcon.585d18c070eb3c4c45fa.png",
     "static/media/Smell.png": "/static/media/Smell.c3ce48c9b103a6834c76.png",
@@ -13,11 +13,11 @@
     "static/media/RightTurn.png": "/static/media/RightTurn.6d28652c4acc944767ab.png",
     "static/media/Down.png": "/static/media/Down.76c2e061c201ceb0691d.png",
     "index.html": "/index.html",
-    "main.d6cc3d25.css.map": "/static/css/main.d6cc3d25.css.map",
-    "main.7f00300f.js.map": "/static/js/main.7f00300f.js.map"
+    "main.3eb3b9a4.css.map": "/static/css/main.3eb3b9a4.css.map",
+    "main.bedad802.js.map": "/static/js/main.bedad802.js.map"
   },
   "entrypoints": [
-    "static/css/main.d6cc3d25.css",
-    "static/js/main.7f00300f.js"
+    "static/css/main.3eb3b9a4.css",
+    "static/js/main.bedad802.js"
   ]
 }
