@@ -97,12 +97,12 @@ const Video = () => {
     }
 
     const intervalIdImage = setInterval(UpdateImage, 2000);
-    // const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
-    UpdateSmellAndDistance()
+    const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
+    // UpdateSmellAndDistance()
     
     return () => {
-      // clearInterval(intervalIdImage);
-      // clearInterval(intervalIdSmell);
+      clearInterval(intervalIdImage);
+      clearInterval(intervalIdSmell);
     };    
   }, []);
   
