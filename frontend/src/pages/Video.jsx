@@ -36,7 +36,7 @@ const Video = () => {
     sanitizer = Math.abs(sanitizer);
 
     let minMAE = 255; // Arduino int max value is 255
-    const limit = 200;
+    const limit = 250;
 
     if (perfume < limit && perfume < minMAE) {
         minMAE = perfume;
