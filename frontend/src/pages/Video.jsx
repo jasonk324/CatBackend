@@ -85,16 +85,25 @@ const Video = () => {
     sendSmellUpdate("This smells like " + smell)
   }
 
-  const UpdateSmellAndDistance = async () => {
+  const UpdateSmell = async () => {
     try {
       const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
-      const data = docRef.data();
-      setDistance(data.Distance)
+      const data = docRef.data()
       Smell['C2H5CH'].set(data.C2H5CH)
       Smell['CO'].set(data.CO)
       Smell['NO2'].set(data.NO2)
       Smell['VOC'].set(data.VOC)
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
+  }
 
+  const UpdateDistance = async () => {
+    try {
+      const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
+      const data = docRef.data();
+      setDistance(data.Distance)
+      
       let distanceReading = "Path is something"
       distanceReading = data.Distance.split("|")
       distanceReading = distanceReading[0]
@@ -142,12 +151,13 @@ const Video = () => {
     // }
 
     const intervalIdImage = setInterval(UpdateImage, 2000);
-    // const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
-    UpdateSmellAndDistance()
+    const intervalIdSmell = setInterval(UpdateSmell, 100);
+    UpdateSmell();
+    UpdateDistance();
     
     return () => {
       clearInterval(intervalIdImage);
-      // clearInterval(intervalIdSmell);
+      clearInterval(intervalIdSmell);
     };    
   }, []);
   
@@ -182,7 +192,7 @@ const Video = () => {
     })
 
     setTimeout(() => {
-      UpdateSmellAndDistance();
+      UpdateDistance();
       Disabled.set(false)
     }, 3000)
   }
