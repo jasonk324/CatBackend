@@ -85,6 +85,25 @@ const Video = () => {
     sendSmellUpdate("This smells like " + smell)
   }
 
+  const UpdateSmellAndDistance = async () => {
+    try {
+      const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
+      const data = docRef.data();
+      setDistance(data.Distance)
+      Smell['C2H5CH'].set(data.C2H5CH)
+      Smell['CO'].set(data.CO)
+      Smell['NO2'].set(data.NO2)
+      Smell['VOC'].set(data.VOC)
+
+      let distanceReading = "Path is something"
+      distanceReading = data.Distance.split("|")
+      distanceReading = distanceReading[0]
+      sendSmellUpdate(distanceReading)
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
+  }
+
   useEffect(() => {
     const UpdateImage = async () => {
       
@@ -106,28 +125,29 @@ const Video = () => {
         });
     }
 
-    const UpdateSmellAndDistance = async () => {
-      try {
-        const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
-        const data = docRef.data();
-        setDistance(data.Distance)
-        Smell['C2H5CH'].set(data.C2H5CH)
-        Smell['CO'].set(data.CO)
-        Smell['NO2'].set(data.NO2)
-        Smell['VOC'].set(data.VOC)
-        // updateSmell();
-      } catch (error) {
-        console.error("Error getting document:", error);
-      }
-    }
+    // const UpdateSmellAndDistance = async () => {
+    //   try {
+    //     const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
+    //     const data = docRef.data();
+    //     setDistance(data.Distance)
+    //     Smell['C2H5CH'].set(data.C2H5CH)
+    //     Smell['CO'].set(data.CO)
+    //     Smell['NO2'].set(data.NO2)
+    //     Smell['VOC'].set(data.VOC)
+    //     // updateSmell();
+
+    //   } catch (error) {
+    //     console.error("Error getting document:", error);
+    //   }
+    // }
 
     const intervalIdImage = setInterval(UpdateImage, 2000);
-    const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
-    // UpdateSmellAndDistance()
+    // const intervalIdSmell = setInterval(UpdateSmellAndDistance, 100);
+    UpdateSmellAndDistance()
     
     return () => {
       clearInterval(intervalIdImage);
-      clearInterval(intervalIdSmell);
+      // clearInterval(intervalIdSmell);
     };    
   }, []);
   
@@ -143,28 +163,14 @@ const Video = () => {
       createdAt: serverTimestamp()
     })
 
-    // setTimeout(() => {
-    //   UpdateSmellAndDistance();
-    // }, 8000)
-
     setTimeout(() => {
       updateSmell();
       Disabled.set(false)
-    }, 10000)
-
-    // setTimeout(() => {
-    //   sendSmellUpdate("Done");
-    // }, 14000)
-
-    // setTimeout(() => {
-    //   Disabled.set(false)
-    // }, 10000)
+    }, 15000)
   }
 
   const handleDistance = async () => {
     Disabled.set(true)
-
-    let distanceReading = "Path is something"
 
     sendSmellUpdate("Reading distance");
 
@@ -176,12 +182,7 @@ const Video = () => {
     })
 
     setTimeout(() => {
-      distanceReading = distance.split("|")
-      distanceReading = distanceReading[0]
-      sendSmellUpdate(distanceReading);
-    }, 2000)
-
-    setTimeout(() => {
+      UpdateSmellAndDistance();
       Disabled.set(false)
     }, 3000)
   }
