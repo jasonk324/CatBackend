@@ -11,6 +11,7 @@ import { useButtons } from '../contexts/ButtonsContext';
 const Video = () => {
   const { Disabled, Smell } = useButtons()
   const actionRef = collection(db, "Actions");
+  const smellRef = doc(db, "Conversations", "Smell");
   const [imageUrl, setImageUrl] = useState(null);
   const [distance, setDistance] = useState(null);
 
@@ -21,7 +22,21 @@ const Video = () => {
     return numPart;
   };
 
+  // const sendSmellUpdate = async () => {
+  //   await updateDoc(smellRef, {
+  //     Output: "This smells like " + Smell['smell'].get
+  //   })
+  // }
+
+  const sendSmellUpdate = async (smellString) => {
+    await updateDoc(smellRef, {
+      Output: smellString
+    });
+  };
+
   const updateSmell = () => {
+
+    let smell = "something I do not know";
 
     let perfume = Math.abs(getInt(Smell['C2H5CH'].get) - 1000) + Math.abs(getInt(Smell['VOC'].get) - 950) + Math.abs(getInt(Smell['CO'].get) - 950) + Math.abs(getInt(Smell['NO2'].get) - 800);
     let air = Math.abs(getInt(Smell['C2H5CH'].get) - 660) + Math.abs(getInt(Smell['VOC'].get) - 660) + Math.abs(getInt(Smell['CO'].get) - 290) + Math.abs(getInt(Smell['NO2'].get) - 270);
@@ -36,28 +51,38 @@ const Video = () => {
     sanitizer = Math.abs(sanitizer);
 
     let minMAE = 255; // Arduino int max value is 255
-    const limit = 250;
+    const limit = 300;
 
     if (perfume < limit && perfume < minMAE) {
         minMAE = perfume;
         Smell['smell'].set("PERFUME")
+        smell = "PERFUME";
     }
     if (air < limit && air < minMAE) {
         minMAE = air
         Smell['smell'].set("AIR")
+        smell = "AIR";
     }
     if (coffee < limit && coffee < minMAE) {
         minMAE = coffee
         Smell['smell'].set("COFFEE")
+        smell = "COFFEE";
     }
     if (alcohol < limit && alcohol < minMAE) {
         minMAE = alcohol
         Smell['smell'].set("ALCOHOL")
+        smell = "ALCOHOL"
     }
     if (sanitizer < limit && sanitizer < minMAE) {
         minMAE = sanitizer
         Smell['smell'].set("HAND SANITIZER")
+        smell = "HAND SANITIZER"
     }
+    if (smell == "something I do not know") {
+      Smell['smell'].set("NO SMELL DETECTED")
+    }
+
+    sendSmellUpdate("This smells like " + smell)
   }
 
   useEffect(() => {
@@ -90,7 +115,7 @@ const Video = () => {
         Smell['CO'].set(data.CO)
         Smell['NO2'].set(data.NO2)
         Smell['VOC'].set(data.VOC)
-        updateSmell();
+        // updateSmell();
       } catch (error) {
         console.error("Error getting document:", error);
       }
@@ -109,6 +134,8 @@ const Video = () => {
   const handleSmell = async () => {
     Disabled.set(true)
 
+    sendSmellUpdate("Sniff Sniff");
+
     const actionDocRef = doc(actionRef);
     setDoc(actionDocRef, {
       action: "(",
@@ -116,13 +143,30 @@ const Video = () => {
       createdAt: serverTimestamp()
     })
 
+    // setTimeout(() => {
+    //   UpdateSmellAndDistance();
+    // }, 8000)
+
     setTimeout(() => {
+      updateSmell();
       Disabled.set(false)
-    }, 1000)
+    }, 10000)
+
+    // setTimeout(() => {
+    //   sendSmellUpdate("Done");
+    // }, 14000)
+
+    // setTimeout(() => {
+    //   Disabled.set(false)
+    // }, 10000)
   }
 
   const handleDistance = async () => {
     Disabled.set(true)
+
+    let distanceReading = "Path is something"
+
+    sendSmellUpdate("Reading distance");
 
     const actionDocRef = doc(actionRef);
     setDoc(actionDocRef, {
@@ -132,8 +176,14 @@ const Video = () => {
     })
 
     setTimeout(() => {
+      distanceReading = distance.split("|")
+      distanceReading = distanceReading[0]
+      sendSmellUpdate(distanceReading);
+    }, 2000)
+
+    setTimeout(() => {
       Disabled.set(false)
-    }, 1000)
+    }, 3000)
   }
 
   return (

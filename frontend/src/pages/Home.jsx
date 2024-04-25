@@ -86,7 +86,7 @@ const Home = () => {
 						Additional Movements
 					</div> */}
 					<div className='flex flex-row'>
-						<ButtonCommand description={"Lean Forward"} actionName={"P"} timer={1000}/>
+						<ButtonCommand description={"Lean Forward"} actionName={"p"} timer={1000}/>
 						<ButtonCommand description={"Stand Tall"} actionName={"s"} timer={1000}/>
 					</div>
 					<div className='flex flex-row'>
