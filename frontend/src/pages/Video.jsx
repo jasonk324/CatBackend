@@ -166,7 +166,7 @@ const Video = () => {
     setTimeout(() => {
       updateSmell();
       Disabled.set(false)
-    }, 15000)
+    }, 18000)
   }
 
   const handleDistance = async () => {
