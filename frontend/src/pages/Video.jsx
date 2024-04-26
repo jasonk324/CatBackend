@@ -34,15 +34,22 @@ const Video = () => {
     });
   };
 
-  const updateSmell = () => {
+  const UpdateSmellDetection = async () => {
 
     let smell = "something I do not know";
 
-    let perfume = Math.abs(getInt(Smell['C2H5CH'].get) - 1000) + Math.abs(getInt(Smell['VOC'].get) - 950) + Math.abs(getInt(Smell['CO'].get) - 950) + Math.abs(getInt(Smell['NO2'].get) - 800);
-    let air = Math.abs(getInt(Smell['C2H5CH'].get) - 660) + Math.abs(getInt(Smell['VOC'].get) - 660) + Math.abs(getInt(Smell['CO'].get) - 290) + Math.abs(getInt(Smell['NO2'].get) - 270);
-    let coffee = Math.abs(getInt(Smell['C2H5CH'].get) - 700) + Math.abs(getInt(Smell['VOC'].get) - 700) + Math.abs(getInt(Smell['CO'].get) - 280) + Math.abs(getInt(Smell['NO2'].get) - 300);
-    let alcohol = Math.abs(getInt(Smell['C2H5CH'].get) - 950) + Math.abs(getInt(Smell['VOC'].get) - 950) + Math.abs(getInt(Smell['CO'].get) - 900) + Math.abs(getInt(Smell['NO2'].get) - 500);
-    let sanitizer = Math.abs(getInt(Smell['C2H5CH'].get) - 850) + Math.abs(getInt(Smell['VOC'].get) - 850) + Math.abs(getInt(Smell['CO'].get) - 700) + Math.abs(getInt(Smell['NO2'].get) - 430);
+    const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
+    const data = docRef.data()
+    let C2H5CH = data.C2H5CH
+    let CO = data.CO
+    let NO2 = data.NO2
+    let VOC = data.VOC
+
+    let perfume = Math.abs(getInt(C2H5CH) - 1000) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 950) + Math.abs(getInt(NO2) - 800);
+    let air = Math.abs(getInt(C2H5CH) - 660) + Math.abs(getInt(VOC) - 660) + Math.abs(getInt(CO) - 290) + Math.abs(getInt(NO2) - 270);
+    let coffee = Math.abs(getInt(C2H5CH) - 700) + Math.abs(getInt(VOC) - 700) + Math.abs(getInt(CO) - 280) + Math.abs(getInt(NO2) - 300);
+    let alcohol = Math.abs(getInt(C2H5CH) - 950) + Math.abs(getInt(VOC) - 950) + Math.abs(getInt(CO) - 900) + Math.abs(getInt(NO2) - 500);
+    let sanitizer = Math.abs(getInt(C2H5CH) - 850) + Math.abs(getInt(VOC) - 850) + Math.abs(getInt(CO) - 700) + Math.abs(getInt(NO2) - 430);
 
     perfume = Math.abs(perfume);
     air = Math.abs(air);
@@ -85,7 +92,7 @@ const Video = () => {
     sendSmellUpdate("This smells like " + smell)
   }
 
-  const UpdateSmell = async () => {
+  const UpdateSmellValues = async () => {
     try {
       const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
       const data = docRef.data()
@@ -134,27 +141,17 @@ const Video = () => {
         });
     }
 
-    // const UpdateSmellAndDistance = async () => {
-    //   try {
-    //     const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
-    //     const data = docRef.data();
-    //     setDistance(data.Distance)
-    //     Smell['C2H5CH'].set(data.C2H5CH)
-    //     Smell['CO'].set(data.CO)
-    //     Smell['NO2'].set(data.NO2)
-    //     Smell['VOC'].set(data.VOC)
-    //     // updateSmell();
+    const justGetDistancePlease = async () => {
+      const docRef = await getDoc(doc(db, "Smell_Distance", "Default"));
+      const data = docRef.data();
+      setDistance(data.Distance)
+    }
 
-    //   } catch (error) {
-    //     console.error("Error getting document:", error);
-    //   }
-    // }
+    justGetDistancePlease();
 
     const intervalIdImage = setInterval(UpdateImage, 2000);
-    const intervalIdSmell = setInterval(UpdateSmell, 100);
-    UpdateSmell();
-    UpdateDistance();
-    
+    const intervalIdSmell = setInterval(UpdateSmellValues, 100);
+
     return () => {
       clearInterval(intervalIdImage);
       clearInterval(intervalIdSmell);
@@ -174,7 +171,7 @@ const Video = () => {
     })
 
     setTimeout(() => {
-      updateSmell();
+      UpdateSmellDetection();
       Disabled.set(false)
     }, 18000)
   }
